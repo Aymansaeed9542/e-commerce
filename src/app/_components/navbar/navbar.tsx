@@ -9,13 +9,13 @@ const Navbar = () => {
             <div className="flex flex-col lg:flex-row justify-between items-center pe-5">
                 <div className="flex flex-col lg:flex-row text-center">
                     <div className="ms-5">
+                        <Link href="/">
                         <Image src={logo} alt="Logo" />
+                        </Link>
+
                     </div>
                     <div>
                         <ul className=" ms-5 gap-3 flex flex-col lg:flex-row text-center text-gray-500 pt-1 ">
-                            <li>
-                                <Link href="/home">Home</Link>
-                            </li>
                             <li>
                                 <Link href="/cart">Cart</Link>
                             </li>
