@@ -1,10 +1,43 @@
-export default function Home() {
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "../components/ui/card"
+
+export default async function Home() {
+
+    const response = await fetch("https://ecommerce.routemisr.com/api/v1/products")
+    const {data} = await response.json()
+    console.log(data);
+    
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold">Welcome to Our Store</h1>
-        <p className="text-lg">Discover the best products at unbeatable prices.</p>
-      </div>
-      </div>
+      <section className=" w-full my-10  mx-auto md:w-[90%] sm:px-2">
+        <div className="flex flex-wrap">
+
+      {data.map((product , idx) => <div key={idx} className=" w-full sm:w-1/2 md:w-1/3 lg:w-1/4  xl:w-1/5 2xl:w-1/6 p-3 ">
+       <div  className="inner">
+            <Card className="p-2">
+  <CardHeader className="p-0 ">
+    <img src={product.imageCover} alt="..." className="w-full" />
+  </CardHeader>
+  <CardContent className="p-0 ">
+    <p className="text-green-500">{product.category.name}</p>
+    <p className=" line-clamp-1">{product.title}</p>
+  </CardContent>
+  <CardFooter className="p-0">
+    <div className="w-full flex justify-between items-center">
+      <p> {product.price}EGP</p>
+      <p><i className="fas fa-star text-yellow-400"></i>{product.ratingsAverage}</p>
+    </div>
+  </CardFooter>
+</Card>
+
+          </div>
+          </div>)}
+        </div>
+
+
+      </section>
   );
 }
