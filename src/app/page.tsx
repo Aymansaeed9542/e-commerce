@@ -5,17 +5,28 @@ import {
   CardHeader,
 } from "../components/ui/card"
 
+interface Product {
+  _id: string;
+  title: string;
+  price: number;
+  imageCover: string;
+  ratingsAverage: number;
+  category: {
+    name: string;
+  };
+}
+
 export default async function Home() {
 
     const response = await fetch("https://ecommerce.routemisr.com/api/v1/products")
-    const {data} = await response.json()
+    const {data}: { data: Product[] } = await response.json()
     console.log(data);
     
   return (
       <section className=" w-full my-10  mx-auto md:w-[90%] sm:px-2">
         <div className="flex flex-wrap">
 
-      {data.map((product , idx) => <div key={idx} className=" w-full sm:w-1/2 md:w-1/3 lg:w-1/4  xl:w-1/5 2xl:w-1/6 p-3 ">
+      {data.map((product: Product, idx: number) => <div key={idx} className=" w-full sm:w-1/2 md:w-1/3 lg:w-1/4  xl:w-1/5 2xl:w-1/6 p-3 ">
        <div  className="inner">
             <Card className="p-2">
   <CardHeader className="p-0 ">
