@@ -12,14 +12,16 @@ type Product = {
   title: string
   price: number
   ratingsAverage: number
+  id : number
 }
 
 
 const HomeCard =({ product }: { product: Product })  => {
   return (
     <div  className=" w-full sm:w-1/2 md:w-1/3 lg:w-1/4  xl:w-1/4 2xl:w-1/5 p-3 ">
-       <div  className="inner">
-        <Link href="/productDetails">
+       
+        <Link href={`/productDetails/${product.id}`}>
+        <div  className="inner">
                         <Card className="p-2">
   <CardHeader className="p-0 ">
     <img src={product.imageCover} alt="..." className="w-full" />
@@ -35,10 +37,9 @@ const HomeCard =({ product }: { product: Product })  => {
     </div>
   </CardFooter>
 </Card>
-        
+        </div>
         </Link>
 
-          </div>
           </div>
   )
 }

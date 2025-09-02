@@ -8,6 +8,7 @@ type Product = {
   title: string;
   price: number;
   ratingsAverage: number;
+  id: number;
 };
 
 
