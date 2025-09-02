@@ -26,7 +26,7 @@ export default async function Home() {
       <section className=" w-full my-10  mx-auto md:w-[90%] sm:px-2">
         <div className="flex flex-wrap">
 
-      {data.map((product: Product, idx: number) => <div key={idx} className=" w-full sm:w-1/2 md:w-1/3 lg:w-1/4  xl:w-1/5 2xl:w-1/6 p-3 ">
+      {data.map((product: Product, idx: number) => <div key={idx} className=" w-full sm:w-1/2 md:w-1/3 lg:w-1/4  xl:w-1/4 2xl:w-1/5 p-3 ">
        <div  className="inner">
             <Card className="p-2">
   <CardHeader className="p-0 ">
