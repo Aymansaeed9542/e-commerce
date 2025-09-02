@@ -4,24 +4,21 @@ import {
   CardFooter,
   CardHeader,
 } from "../components/ui/card"
+import getAllProducts from "./../apis/allProducts"
 
-interface Product {
-  _id: string;
+type Product = {
+  imageCover: string;
+  category: { name: string };
   title: string;
   price: number;
-  imageCover: string;
   ratingsAverage: number;
-  category: {
-    name: string;
-  };
-}
+};
+
+
 
 export default async function Home() {
+ const data = await getAllProducts()
 
-    const response = await fetch("https://ecommerce.routemisr.com/api/v1/products")
-    const {data}: { data: Product[] } = await response.json()
-    console.log(data);
-    
   return (
       <section className=" w-full my-10  mx-auto md:w-[90%] sm:px-2">
         <div className="flex flex-wrap">
