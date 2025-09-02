@@ -4,6 +4,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card"
+import Link from "next/link"
 
 type Product = {
   imageCover: string
@@ -18,7 +19,8 @@ const HomeCard =({ product }: { product: Product })  => {
   return (
     <div  className=" w-full sm:w-1/2 md:w-1/3 lg:w-1/4  xl:w-1/4 2xl:w-1/5 p-3 ">
        <div  className="inner">
-            <Card className="p-2">
+        <Link href="/productDetails">
+                        <Card className="p-2">
   <CardHeader className="p-0 ">
     <img src={product.imageCover} alt="..." className="w-full" />
   </CardHeader>
@@ -33,6 +35,8 @@ const HomeCard =({ product }: { product: Product })  => {
     </div>
   </CardFooter>
 </Card>
+        
+        </Link>
 
           </div>
           </div>
