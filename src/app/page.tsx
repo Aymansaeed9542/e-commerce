@@ -24,8 +24,8 @@ export default async function Home() {
           <MainSlider />
         </section>
 
-        <section className="w-full my-10 mx-auto md:w-[90%] sm:px-2">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <section className="w-full my-10 mx-auto md:w-[90%] sm:px-2 px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {data.map((product: Product, idx: number) => (
               <HomeCard key={idx} product={product} />
             ))}
