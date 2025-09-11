@@ -9,10 +9,8 @@ import img4 from "./../../../assets/screens/slider/18899191.jpg";
 
 type Slide = {
   id: number;
-  src: any;
+  src: import("next/image").StaticImageData;
   alt: string;
-  headline: string;
-  subcopy: string;
   cta?: { label: string; href: string };
 };
 
@@ -22,24 +20,27 @@ const MainSlider = () => {
       {
         id: 1,
         src: BlackFridayBanner,
-
+        alt: "Black Friday Banner",
         cta: { label: "Shop Now", href: "/products" },
       },
       {
         id: 2,
         src: img2,
+        alt: "Black Friday Web Banner",
         cta: { label: "Explore", href: "/products" },
       },
       {
         id: 3,
         src: img3,
-
+        alt: "Black Friday Facebook Cover Banner",
         cta: { label: "Discover", href: "/categories" },
       },
       {
         id: 4,
         src: img4,
-
+        alt: "Product Banner",
+        headline: "Shop Top Categories",
+        subcopy: "Find the best products in every category.",
         cta: { label: "Shop Now", href: "/categories" },
       },
     ],
@@ -88,12 +89,6 @@ const MainSlider = () => {
 
             <div className="absolute inset-0 flex items-center justify-center p-4">
               <div className="max-w-4xl text-center text-white">
-                <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight drop-shadow-lg">
-                  {slide.headline}
-                </h2>
-                <p className="mt-6 text-base sm:text-lg md:text-xl text-white/95 font-medium">
-                  {slide.subcopy}
-                </p>
                 {slide.cta && (
                   <a
                     href={slide.cta.href}
