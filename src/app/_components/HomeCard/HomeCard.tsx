@@ -4,6 +4,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card"
+import Image from "next/image"
 import Link from "next/link"
 
 type Product = {
@@ -23,7 +24,7 @@ const HomeCard =({ product }: { product: Product })  => {
       <div className="bg-white dark:bg-black/20 dark:backdrop-blur-md rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 dark:border-white/10 h-full flex flex-col">
         <Link href={`/productDetails/${product.id}`} className="block">
           <div className="relative aspect-square overflow-hidden">
-            <img 
+            <Image width={500} height={500} 
               src={product.imageCover} 
               alt={product.title} 
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
