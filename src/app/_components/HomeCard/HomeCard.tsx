@@ -17,7 +17,6 @@ type Product = {
 
 
 const HomeCard =({ product }: { product: Product })  => {
-  console.log(product);
   
   return (
     <div className="group h-full">
@@ -37,7 +36,7 @@ const HomeCard =({ product }: { product: Product })  => {
           </div>
         </Link>
         
-        <div className="p-3 sm:p-4 flex-1 flex flex-col">
+        <div className="p-4 flex-1 flex flex-col">
           <Link href={`/productDetails/${product.id}`} className="block">
             <h3 className="font-medium text-gray-900 dark:text-white line-clamp-2 mb-2 group-hover:text-primary transition-colors">
               {product.title}
