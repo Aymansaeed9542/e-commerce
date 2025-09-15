@@ -6,19 +6,22 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { regidterSchemaType, registerSchema } from '@/schema/register.schema'
 
 const Register = () => {
-  const form = useForm({
+  const form = useForm<regidterSchemaType>({
     defaultValues: {
     name: "",
     email:"",
     password:"",
     rePassword:"",
     phone:""
-}
+},
+resolver : zodResolver(registerSchema)
   })
 
-  function handleRegister(values){
+  function handleRegister(values:regidterSchemaType){
     console.log(values);
     
   }
