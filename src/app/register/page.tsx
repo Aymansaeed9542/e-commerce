@@ -8,8 +8,13 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { regidterSchemaType, registerSchema } from '@/schema/register.schema'
+import axios from 'axios'
+import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
 const Register = () => {
+
+  const router = useRouter()
   const form = useForm<regidterSchemaType>({
     defaultValues: {
     name: "",
@@ -21,8 +26,27 @@ const Register = () => {
 resolver : zodResolver(registerSchema)
   })
 
-  function handleRegister(values:regidterSchemaType){
-    console.log(values);
+  async function handleRegister(values:regidterSchemaType){
+    try {
+      const {data}= await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signup" , values)
+      console.log(data);
+  
+  router.push("/login")
+toast.success(data.message , {
+  position: 'top-center',
+  duration: 3000
+})
+    }
+    
+    catch (error) {
+      console.log(error);
+      
+
+        toast.error("Account Already Exists", {
+    position : 'top-center',
+    duration : 3000
+  }) 
+    }
     
   }
 
