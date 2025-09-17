@@ -11,6 +11,7 @@ import axios from 'axios'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { loginSchema, loginSchemaType } from '@/schema/login.schema'
+import {signIn} from "next-auth/react"
 
 const Login = () => {
 
@@ -25,28 +26,61 @@ resolver : zodResolver(loginSchema)
   })
 
   async function handleLogin(values:loginSchemaType){
-    try {
-      const {data}= await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signin" , values)
-      console.log(data);
+
+
+
+//     try {
+//       const {data}= await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signin" , values)
+//       console.log(data);
   
-  router.push("/")
-toast.success(data.message , {
+//   router.push("/")
+// toast.success(data.message , {
+//   position: 'top-center',
+//   duration: 3000
+// })
+//     }
+    
+//     catch (error) {
+//       console.log(error);
+      
+
+//         toast.error("Account Already Exists", {
+//     position : 'top-center',
+//     duration : 3000
+//   }) 
+//     
+
+
+
+
+
+    const res = await signIn("credentials", {
+  email : values.email,
+  password : values.password,
+  redirect : false,
+  callbackUrl : "/"
+}
+)
+console.log(res);
+if(res?.ok){
+  toast.success("success" , {
   position: 'top-center',
   duration: 3000
 })
+router.push(res.url || "/")
     }
-    
-    catch (error) {
-      console.log(error);
-      
-
-        toast.error("Account Already Exists", {
+    else{
+            toast.error("Invalid email or password", {
     position : 'top-center',
     duration : 3000
-  }) 
+})
     }
-    
+
+
   }
+
+
+
 
   return (
     <div className="bg-background flex items-center justify-center p-4 mt-8">
@@ -124,7 +158,7 @@ toast.success(data.message , {
                     <div className="text-center pt-1">
                       <p className="text-muted-foreground text-xs">
                         Already have an account?{' '}
-                        <a href="/Register Now" className="text-primary hover:text-primary/80 font-medium transition-colors">
+                        <a href="/Register" className="text-primary hover:text-primary/80 font-medium transition-colors">
                           Sign up
                         </a>
                       </p>
