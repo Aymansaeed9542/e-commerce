@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "./_components/navbar/navbar";
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import { Toaster } from "sonner";
+import Providers from "@/providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,9 +31,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Providers>
         <Toaster />
         <Navbar />
         {children}
+        </Providers>
+
       </body>
     </html>
   );

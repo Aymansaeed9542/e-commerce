@@ -18,7 +18,7 @@ export const authOptions : AuthOptions = {
      authorize: async function (credentials){
         console.log("API env:", process.env.API)
 
-            const response = await fetch(`${process.env.API}/auth/signin` , {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signin` , {
                 method: "POST",
                 body: JSON.stringify({
                     email: credentials?.email,
