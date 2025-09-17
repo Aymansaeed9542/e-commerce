@@ -1,6 +1,7 @@
 import { AuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { jwtDecode } from "jwt-decode";
+import { use } from "react";
 
 export const authOptions : AuthOptions = {
         pages : {signIn : "/login"},
@@ -50,7 +51,27 @@ export const authOptions : AuthOptions = {
 
 
 
+
         })
 
-    ]
+    ],
+
+        callbacks: {
+            async jwt({ token, user}) {
+
+                if(user){
+                    token.user = user.user,
+                    token.token = user.token
+                }
+      return token
+    },
+  async session({ session,token }) {
+
+    if(token){
+        session.user = token.user
+    }
+      return session
+    }
+
+        } 
 }
