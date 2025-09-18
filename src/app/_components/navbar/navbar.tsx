@@ -70,7 +70,9 @@ const Navbar = () => {
                             <div className="flex items-center gap-4">
                                 <Link href="/login" onClick={() => setOpen(false)} className="text-sm underline">Login</Link>
                                 <Link href="/register" onClick={() => setOpen(false)} className="text-sm underline">Register</Link>
-                                <Button  onClick={() => setOpen(false)} className="text-sm text-gray-500">Logout</Button>
+                                <Button  onClick={()=>(signOut({
+                                                            callbackUrl :"/login"
+                                                        }))} className="text-sm text-gray-500">Logout</Button>
                             </div>
                             <div className="flex items-center gap-3 text-lg text-gray-600">
                                 <i className="fab fa-instagram"></i>
