@@ -3,6 +3,7 @@
 import { addProductToCard } from '@/cartActions/addProductToCart'
 import { Button } from '@/components/ui/button'
 import React from 'react'
+import { toast } from 'sonner'
 
 const AddProductBtn = ({id}:{id:string}) => {
 
@@ -10,6 +11,19 @@ const AddProductBtn = ({id}:{id:string}) => {
     async function addToCart(){
         const data = await addProductToCard(id)
         console.log(data);
+        if(data.status==="success"){
+            toast.success("Product added Successfuly",{
+                duration : 3000,
+                position : "top-center"
+            }
+        )
+        }
+        else{
+            toast.error("Faild to add Product",{
+                duration : 3000,
+                position : "top-center"
+            })
+        }
         
     }
 
