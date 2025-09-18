@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/card"
 import Image from "next/image"
 import Link from "next/link"
+import AddProductBtn from "../AddProductBtn/AddProductBtn"
 
 type Product = {
   imageCover: string
@@ -57,13 +58,7 @@ const HomeCard =({ product }: { product: Product })  => {
           </div>
           
           <div className="mt-auto">
-            <Link 
-              href="/cart" 
-              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-2 px-4 rounded-md transition-colors duration-200 flex items-center justify-center gap-2"
-            >
-              <i className="fas fa-shopping-cart"></i>
-              Add to Cart
-            </Link>
+            <AddProductBtn id={product.id.toString()} />
           </div>
         </div>
       </div>
