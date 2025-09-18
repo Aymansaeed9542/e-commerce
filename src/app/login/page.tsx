@@ -68,6 +68,7 @@ if(res?.ok){
   duration: 3000
 })
 router.push(res.url || "/")
+  router.refresh() 
     }
     else{
             toast.error("Invalid email or password", {
