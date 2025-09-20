@@ -13,7 +13,7 @@ export async function getMyToken(){
         secret : secret
     })
 
-    // console.log(token);
+    console.log(token);
     if (!token) {
         throw new Error("Failed to decode token.");
     }

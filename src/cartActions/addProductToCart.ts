@@ -6,7 +6,7 @@ import axios from "axios"
 export async function addProductToCard(id : string) {
 
     const token = await getMyToken()
-    const {data} = await axios.post("https://ecommerce.routemisr.com/api/v1/cart" ,{
+    const {data} = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/cart` ,{
     productId: id
 },
 {
