@@ -54,3 +54,11 @@ export interface Brand {
   slug: string;
   image: string;
 }
+
+// Cart Context Types
+export interface CartContextType {
+  isLoading: boolean;
+  numOfCartItems: number;
+  products: CartProduct[];
+  totalCartPrice: number;
+}
