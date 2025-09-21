@@ -65,16 +65,16 @@ const MainSlider = () => {
 
   return (
     <div
-      className="relative mb-0 w-full overflow-hidden shadow-sm"
+      className="relative w-full overflow-hidden shadow-2xl"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="relative h-[260px] sm:h-[320px] md:h-[420px] lg:h-[520px]">
+      <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
         {slides.map((slide, index) => (
           <div
             key={slide.id}
-            className={`absolute inset-0 transition-opacity duration-700 ${
-              index === active ? "opacity-100" : "opacity-0"
+            className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+              index === active ? "opacity-100 scale-100" : "opacity-0 scale-105"
             }`}
             aria-hidden={index !== active}
           >
@@ -85,49 +85,70 @@ const MainSlider = () => {
               priority={index === 0}
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-            <div className="absolute inset-0 flex items-center justify-center p-4">
-              <div className="max-w-4xl text-center text-white">
-                {slide.cta && (
-                  <a
-                    href={slide.cta.href}
-                    className="mt-8 inline-flex items-center justify-center rounded-lg bg-primary px-8 py-4 text-base font-bold text-primary-foreground shadow-lg transition hover:opacity-90 hover:scale-105"
-                  >
-                    {slide.cta.label}
-                  </a>
-                )}
+            <div className="absolute inset-0 flex items-center justify-center p-8">
+              <div className="max-w-5xl text-center text-white">
+                <div className="space-y-6">
+                  <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                    {slide.headline || "Welcome to FreshCart"}
+                  </h1>
+                  <p className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-3xl mx-auto">
+                    {slide.subcopy || "Discover amazing products at unbeatable prices"}
+                  </p>
+                  {slide.cta && (
+                    <div className="pt-4">
+                      <a
+                        href={slide.cta.href}
+                        className="inline-flex items-center justify-center rounded-xl bg-primary px-8 py-4 text-lg font-bold text-primary-foreground shadow-2xl transition-all duration-300 hover:shadow-primary/25 hover:scale-105 btn-animate"
+                      >
+                        {slide.cta.label}
+                        <svg className="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </a>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="pointer-events-none absolute inset-y-0 left-0 right-0 flex items-center justify-between px-2">
+      {/* Navigation Arrows */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 right-0 flex items-center justify-between px-4">
         <button
           aria-label="Previous slide"
           onClick={prev}
-          className="pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-gray-900 shadow hover:bg-white"
+          className="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-white/90 backdrop-blur-sm text-gray-900 shadow-lg transition-all duration-300 hover:bg-white hover:scale-110 btn-animate"
         >
-          ‹
+          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
         </button>
         <button
           aria-label="Next slide"
           onClick={next}
-          className="pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-gray-900 shadow hover:bg-white"
+          className="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-white/90 backdrop-blur-sm text-gray-900 shadow-lg transition-all duration-300 hover:bg-white hover:scale-110 btn-animate"
         >
-          ›
+          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
         </button>
       </div>
 
-      <div className="absolute bottom-3 left-0 right-0 flex items-center justify-center gap-2">
+      {/* Dots Indicator */}
+      <div className="absolute bottom-6 left-0 right-0 flex items-center justify-center gap-3">
         {slides.map((_, i) => (
           <button
             key={i}
             aria-label={`Go to slide ${i + 1}`}
             onClick={() => setActive(i)}
-            className={`h-2.5 w-2.5 rounded-full transition ${
-              i === active ? "bg-white" : "bg-white/50 hover:bg-white/80"
+            className={`h-3 w-3 rounded-full transition-all duration-300 ${
+              i === active 
+                ? "bg-white scale-125 shadow-lg" 
+                : "bg-white/50 hover:bg-white/80 hover:scale-110"
             }`}
           />
         ))}

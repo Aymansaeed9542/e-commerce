@@ -217,9 +217,11 @@ async function handleUpdateProduct(id: string, count: number) {
                                   <span className="text-muted-foreground text-sm">
                                     Rating: {product.product.ratingsAverage} ⭐
                                   </span>
-                                  <span className="text-muted-foreground text-sm">
-                                    • {product.product.brand.name}
-                                  </span>
+                                  {product.product.brand?.name && (
+                                    <span className="text-muted-foreground text-sm">
+                                      • {product.product.brand.name}
+                                    </span>
+                                  )}
                                 </div>
                                 <p className="text-xl font-bold text-primary">
                                   ${product.price}
