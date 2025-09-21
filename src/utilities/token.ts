@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 
 
 export async function getMyToken(){
-    const x  = (await cookies()).get("__Secure-next-auth.session-token")?.value
+    const x  = (await cookies()).get("next-auth.session-token")?.value
     const secret = process.env.NEXTAUTH_SECRET
     if (!secret) {
         throw new Error("NEXTAUTH_SECRET is not defined");
