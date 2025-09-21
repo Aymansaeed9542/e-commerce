@@ -11,7 +11,8 @@ import { cartContext } from "@/context/cartContext";
 const Navbar = () => {
     const [open, setOpen] = useState(false);
     const {data : session , status} = useSession()
-    const { numOfCartItems } = useContext(cartContext)
+    const cartContextValue = useContext(cartContext)
+    const numOfCartItems = cartContextValue?.numOfCartItems || 0
     return (
         <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/80 border-b dark:supports-[backdrop-filter]:bg-black/60 dark:bg-black/80 dark:border-white/10">
             <nav className="mx-auto lg:w-[80%] md:w-[90%] sm:w-full px-4">

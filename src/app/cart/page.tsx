@@ -1,14 +1,27 @@
 "use client"
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Minus, Plus, Trash2, ShoppingCart } from 'lucide-react'
+import { Minus, Plus, Trash2, ShoppingCart, Loader2 } from 'lucide-react'
 import { cartContext } from '@/context/cartContext'
 import Image from 'next/image'
+import { toast } from 'sonner'
+import { CartProduct } from '@/types/cart.type'
 
 
 const Cart = () => {
-  const { isLoading, products, numOfCartItems, totalCartPrice, deleteProduct } = useContext(cartContext)  
+  const cartContextValue = useContext(cartContext)
+  const { isLoading, products, numOfCartItems, totalCartPrice, deleteProduct,updateProductCount } = cartContextValue || {
+    isLoading: false,
+    products: [],
+    numOfCartItems: 0,
+    totalCartPrice: 0,
+    deleteProduct: undefined,
+    updateProductCount:undefined
+  }  
+  
+  // State to track which product is being updated
+  const [updatingProductId, setUpdatingProductId] = useState<string | null>(null)  
       
   if (isLoading) {
     return (
@@ -22,10 +35,60 @@ const Cart = () => {
   }
 
     async function removeProduct(id:string){
-      const data = await deleteProduct?.(id)
-      console.log(data);
+      if (!deleteProduct) return;
       
+      try {
+        const data = await deleteProduct(id)
+        if(data?.status === "success") {
+          toast.success("Product removed Successfully", {
+            duration: 3000,
+            position: "top-center"
+          });
+        } else {
+          toast.error("Failed to remove Product", {
+            duration: 3000,
+            position: "top-center"
+          });
+        }
+      } catch (error) {
+        toast.error("Failed to remove Product", {
+          duration: 3000,
+          position: "top-center"
+        });
+      }
     }
+
+async function handleUpdateProduct(id: string, count: number) {
+  if (!updateProductCount) return;
+
+  // Prevent negative count
+  if (count < 0) return;
+
+  setUpdatingProductId(id);
+  
+  try {
+    const data = await updateProductCount(id, count);
+    console.log("Updated product:", data);
+    
+    if (data?.status === "success") {
+      toast.success("Quantity updated successfully", {
+        duration: 2000,
+        position: "top-center"
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    toast.error("Failed to update quantity", {
+      duration: 3000,
+      position: "top-center"
+    });
+  } finally {
+    setUpdatingProductId(null);
+  }
+}
+
+
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -42,7 +105,7 @@ const Cart = () => {
               <div className="flex items-center gap-2">
                 <span className="text-sm text-muted-foreground">Total Cart Value:</span>
                 <span className="text-2xl font-bold text-primary">
-                  ${totalCartPrice.toFixed(2)}
+                  ${totalCartPrice}
                 </span>
               </div>
               <p className="text-xs text-muted-foreground mt-1">
@@ -89,7 +152,7 @@ const Cart = () => {
 
                 {/* Cart Items List */}
                 <div className="space-y-4">
-                  {products.map((product , idx) => (
+                  {products.map((product: CartProduct, idx: number) => (
                     <Card key={idx} className="overflow-hidden">
                       <CardContent className="p-0">
                         <div className="flex flex-col sm:flex-row">
@@ -111,14 +174,14 @@ const Cart = () => {
                                 <h3 className="font-semibold text-lg mb-2">{product.product.title}</h3>
                                 <div className="flex items-center gap-2 mb-3">
                                   <span className="text-muted-foreground text-sm">
-                                    Rating: {product.product.ratingsAverage.toFixed(1)} ⭐
+                                    Rating: {product.product.ratingsAverage} ⭐
                                   </span>
                                   <span className="text-muted-foreground text-sm">
                                     • {product.product.brand.name}
                                   </span>
                                 </div>
                                 <p className="text-xl font-bold text-primary">
-                                  ${product.price.toFixed(2)}
+                                  ${product.price}
                                 </p>
                               </div>
                               
@@ -130,8 +193,14 @@ const Cart = () => {
                                     variant="outline"
                                     size="icon"
                                     className="h-9 w-9"
+                                    disabled={updatingProductId === product.product.id || product.count <= 1}
+                                    onClick={()=>handleUpdateProduct(product.product.id,product.count-1)}
                                   >
-                                    <Minus className="h-4 w-4" />
+                                    {updatingProductId === product.product.id ? (
+                                      <Loader2 className="h-4 w-4 animate-spin" />
+                                    ) : (
+                                      <Minus className="h-4 w-4" />
+                                    )}
                                   </Button>
                                   
                                   <div className="min-w-[3rem] text-center">
@@ -144,8 +213,14 @@ const Cart = () => {
                                     variant="outline"
                                     size="icon"
                                     className="h-9 w-9"
+                                    disabled={updatingProductId === product.product.id}
+                                    onClick={()=>handleUpdateProduct(product.product.id ,product.count + 1)}
                                   >
-                                    <Plus className="h-4 w-4" />
+                                    {updatingProductId === product.product.id ? (
+                                      <Loader2 className="h-4 w-4 animate-spin" />
+                                    ) : (
+                                      <Plus className="h-4 w-4" />
+                                    )}
                                   </Button>
                                 </div>
                                 
@@ -153,7 +228,7 @@ const Cart = () => {
                                 <Button
                                   variant="outline"
                                   size="icon"
-                                  onClick={()=>deleteProduct?.(product.product.id)}
+                                  onClick={()=>removeProduct(product.product.id)}
                                   className="h-9 w-9 text-destructive hover:bg-destructive hover:text-white"
                                 >
                                   <Trash2 className="h-4 w-4" />
@@ -181,7 +256,7 @@ const Cart = () => {
                 <div className="space-y-3">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Subtotal</span>
-                    <span className="font-semibold">${totalCartPrice.toFixed(2)}</span>
+                    <span className="font-semibold">${totalCartPrice}</span>
                   </div>
                   
                   <div className="flex justify-between">
@@ -192,7 +267,7 @@ const Cart = () => {
                   <div className="border-t pt-3">
                     <div className="flex justify-between text-lg font-bold">
                       <span>Total</span>
-                      <span className="text-primary">${totalCartPrice.toFixed(2)}</span>
+                      <span className="text-primary">${totalCartPrice}</span>
                     </div>
                   </div>
                 </div>

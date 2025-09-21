@@ -1,25 +1,21 @@
 "use client"
 
+import { addProductToCard } from '@/cartActions/addProductToCart'
 import { deleteProductAction } from '@/cartActions/deleteProductFromCart'
 import { getUserCartDataAction } from '@/cartActions/getUserCartData'
+import { updateProductCountAction } from '@/cartActions/updateProductCount'
 import { Cart, CartContextType } from '@/types/cart.type'
-import axios from 'axios'
 import React, { createContext, useEffect, useState } from 'react'
 
 
-export const cartContext = createContext<CartContextType>({
-  isLoading: false,
-  numOfCartItems: 0,
-  products: [],
-  totalCartPrice: 0,
-  
-})
+export const cartContext = createContext<CartContextType| undefined>(undefined)
 
 const  CartContextProvider = ({children}:{children:React.ReactNode}) => {
     const [numOfCartItems, setnumOfCartItems] = useState(0)
     const [products, setproducts] = useState<Cart['data']['products']>([])
     const [totalCartPrice, settotalCartPrice] = useState(0)
     const [isLoading, setisLoading] = useState(false)
+
 
     async function getCartData(){
                     setisLoading(true)
@@ -39,6 +35,26 @@ setisLoading(false)
     }
     
 
+    async function addProduct(id:string){
+                    setisLoading(true)
+
+        try {
+                const data = await addProductToCard(id)
+                setnumOfCartItems(data.numOfCartItems)
+                setproducts(data.data.products)
+                settotalCartPrice(data.data.totalCartPrice)  
+
+setisLoading(false)
+    console.log(data);
+    return data                   
+
+        } catch (error) {
+            console.log(error);
+            setisLoading(false)
+        }
+    }
+
+    
 
 
 
@@ -53,12 +69,27 @@ setisLoading(false)
 
 setisLoading(false)
     console.log(data);
+    return data
         } catch (error) {
             console.log(error);
             setisLoading(false)
         }
     }
 
+
+    async function updateProductCount(id : string , count : number){
+        try {
+            const data = await updateProductCountAction(id , count)
+                setnumOfCartItems(data.numOfCartItems)
+                setproducts(data.data.products)
+                settotalCartPrice(data.data.totalCartPrice)
+                                console.log(data);
+             return data
+             
+        } catch (error) {
+                        console.log(error);
+        } 
+    }
 
         useEffect(function(){
                 getCartData()
@@ -73,7 +104,9 @@ setisLoading(false)
         numOfCartItems,
         products,
         totalCartPrice,
-        deleteProduct
+        deleteProduct,
+        addProduct ,
+        updateProductCount,
     }}>
         {children}
     </cartContext.Provider>
