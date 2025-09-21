@@ -8,9 +8,8 @@ import Image from 'next/image'
 
 
 const Cart = () => {
-  const { isLoading, products, numOfCartItems, totalCartPrice } = useContext(cartContext)  
-
-
+  const { isLoading, products, numOfCartItems, totalCartPrice, deleteProduct } = useContext(cartContext)  
+      
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -22,6 +21,11 @@ const Cart = () => {
     )
   }
 
+    async function removeProduct(id:string){
+      const data = await deleteProduct?.(id)
+      console.log(data);
+      
+    }
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -149,6 +153,7 @@ const Cart = () => {
                                 <Button
                                   variant="outline"
                                   size="icon"
+                                  onClick={()=>deleteProduct?.(product.product.id)}
                                   className="h-9 w-9 text-destructive hover:bg-destructive hover:text-white"
                                 >
                                   <Trash2 className="h-4 w-4" />

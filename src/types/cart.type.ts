@@ -59,6 +59,7 @@ export interface Brand {
 export interface CartContextType {
   isLoading: boolean;
   numOfCartItems: number;
-  products: CartProduct[];
+  products: Cart['data']['products'];
   totalCartPrice: number;
+  deleteProduct?: (id: string) => Promise<void>;
 }
