@@ -34,7 +34,7 @@ export default async function Home() {
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-foreground mb-4">Shop by Category</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Explore our carefully curated categories to find exactly what you're looking for
+              Explore our carefully curated categories to find exactly what you are looking for
             </p>
           </div>
           <CategoriesSlides />
