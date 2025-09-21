@@ -11,17 +11,20 @@ import { CartProduct } from '@/types/cart.type'
 
 const Cart = () => {
   const cartContextValue = useContext(cartContext)
-  const { isLoading, products, numOfCartItems, totalCartPrice, deleteProduct,updateProductCount } = cartContextValue || {
+  const { isLoading, products, numOfCartItems, totalCartPrice, deleteProduct,updateProductCount , clearAllProducts } = cartContextValue || {
     isLoading: false,
     products: [],
     numOfCartItems: 0,
     totalCartPrice: 0,
     deleteProduct: undefined,
-    updateProductCount:undefined
+    updateProductCount: undefined,
+    clearAllProducts: undefined
   }  
   
   // State to track which product is being updated
-  const [updatingProductId, setUpdatingProductId] = useState<string | null>(null)  
+  const [updatingProductId, setUpdatingProductId] = useState<string | null>(null)
+  // State to track if clearing all products
+  const [isClearingAll, setIsClearingAll] = useState(false)  
       
   if (isLoading) {
     return (
@@ -88,7 +91,31 @@ async function handleUpdateProduct(id: string, count: number) {
 }
 
 
+  async function handleClearAll(){
+      if (!clearAllProducts) return;
+      
+      setIsClearingAll(true);
+      
+      try {
+        const data = await clearAllProducts()
+        console.log("Clear all response:", data); // Debug log
+        
 
+        toast.success("All products removed successfully", {
+          duration: 3000,
+          position: "top-center"
+        });
+        
+      } catch (error) {
+        console.log("Clear all error:", error);
+        toast.error("Failed to clear cart", {
+          duration: 3000,
+          position: "top-center"
+        });
+      } finally {
+        setIsClearingAll(false);
+      }
+    }
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -144,9 +171,23 @@ async function handleUpdateProduct(id: string, count: number) {
                   <h2 className="text-xl font-semibold">
                     Cart Items ({numOfCartItems})
                   </h2>
-                  <Button variant="outline" className="text-destructive hover:bg-destructive hover:text-white">
-                    <Trash2 className="h-4 w-4 mr-2" />
-                    Clear All
+                  <Button 
+                    onClick={handleClearAll} 
+                    disabled={isClearingAll}
+                    variant="outline" 
+                    className="text-destructive hover:bg-destructive hover:text-white"
+                  >
+                    {isClearingAll ? (
+                      <>
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                        Clearing...
+                      </>
+                    ) : (
+                      <>
+                        <Trash2 className="h-4 w-4 mr-2" />
+                        Clear All
+                      </>
+                    )}
                   </Button>
                 </div>
 

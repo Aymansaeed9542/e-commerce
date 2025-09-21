@@ -1,6 +1,7 @@
 "use client"
 
 import { addProductToCard } from '@/cartActions/addProductToCart'
+import { clearAllProductsAction } from '@/cartActions/clearAllProducts'
 import { deleteProductAction } from '@/cartActions/deleteProductFromCart'
 import { getUserCartDataAction } from '@/cartActions/getUserCartData'
 import { updateProductCountAction } from '@/cartActions/updateProductCount'
@@ -91,6 +92,25 @@ setisLoading(false)
         } 
     }
 
+
+    async function clearAllProducts(){
+        setisLoading(true)
+
+        try {
+            const data = await clearAllProductsAction()
+            
+            // After clearing all products, reset cart state to empty
+            setnumOfCartItems(0)
+            setproducts([])
+            settotalCartPrice(0)
+            setisLoading(false)
+
+            return data
+        } catch (error) {
+            console.log(error);
+            setisLoading(false)
+        } 
+    }
         useEffect(function(){
                 getCartData()
     },[])
@@ -107,6 +127,7 @@ setisLoading(false)
         deleteProduct,
         addProduct ,
         updateProductCount,
+        clearAllProducts
     }}>
         {children}
     </cartContext.Provider>
