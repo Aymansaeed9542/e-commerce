@@ -11,6 +11,8 @@ type Slide = {
   id: number;
   src: import("next/image").StaticImageData;
   alt: string;
+  headline?: string;
+  subcopy?: string;
   cta?: { label: string; href: string };
 };
 
