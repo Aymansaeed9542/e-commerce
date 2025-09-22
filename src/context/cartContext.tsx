@@ -17,6 +17,7 @@ const  CartContextProvider = ({children}:{children:React.ReactNode}) => {
     const [products, setproducts] = useState<Cart['data']['products']>([])
     const [totalCartPrice, settotalCartPrice] = useState(0)
     const [isLoading, setisLoading] = useState(false)
+    const [cartId, setcartId] = useState("")
 
 
     async function getCartData(){
@@ -25,7 +26,8 @@ const  CartContextProvider = ({children}:{children:React.ReactNode}) => {
                 const data : Cart = await getUserCartDataAction()
                 setnumOfCartItems(data.numOfCartItems)
                 setproducts(data.data.products)
-                settotalCartPrice(data.data.totalCartPrice)                     
+                settotalCartPrice(data.data.totalCartPrice)   
+                setcartId(data.cartId)                  
 
 setisLoading(false)
   console.log("Cart API Response:", data);
@@ -126,7 +128,8 @@ setisLoading(false)
         deleteProduct,
         addProduct ,
         updateProductCount,
-        clearAllProducts
+        clearAllProducts,
+        cartId
     }}>
         {children}
     </cartContext.Provider>

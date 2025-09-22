@@ -65,4 +65,5 @@ export interface CartContextType {
   addProduct: (id: string) => Promise<Cart | undefined>;
   updateProductCount:(id: string, count:number) => Promise<Cart | undefined>;
   clearAllProducts: () => Promise<Cart | undefined>;
+  cartId : string
 }
