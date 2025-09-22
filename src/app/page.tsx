@@ -71,28 +71,6 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
-      {/* Newsletter Section */}
-      <section className="py-16 bg-gradient-to-r from-primary/10 to-primary/5">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Stay Updated</h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Subscribe to our newsletter and be the first to know about new products, special offers, and exclusive deals.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
-                className="flex-1 px-4 py-3 rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
-              />
-              <button className="px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors btn-animate">
-                Subscribe
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

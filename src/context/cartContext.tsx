@@ -6,6 +6,7 @@ import { deleteProductAction } from '@/cartActions/deleteProductFromCart'
 import { getUserCartDataAction } from '@/cartActions/getUserCartData'
 import { updateProductCountAction } from '@/cartActions/updateProductCount'
 import { Cart, CartContextType } from '@/types/cart.type'
+import { useSession } from 'next-auth/react'
 import React, { createContext, useEffect, useState } from 'react'
 
 
@@ -19,8 +20,7 @@ const  CartContextProvider = ({children}:{children:React.ReactNode}) => {
 
 
     async function getCartData(){
-                    setisLoading(true)
-
+                setisLoading(true)
         try {
                 const data : Cart = await getUserCartDataAction()
                 setnumOfCartItems(data.numOfCartItems)
@@ -28,7 +28,7 @@ const  CartContextProvider = ({children}:{children:React.ReactNode}) => {
                 settotalCartPrice(data.data.totalCartPrice)                     
 
 setisLoading(false)
-    console.log(data);
+  console.log("Cart API Response:", data);
         } catch (error) {
             console.log(error);
             setisLoading(false)
@@ -37,14 +37,13 @@ setisLoading(false)
     
 
     async function addProduct(id:string){
-                    setisLoading(true)
+            setisLoading(true)
 
         try {
                 const data = await addProductToCard(id)
                 setnumOfCartItems(data.numOfCartItems)
                 setproducts(data.data.products)
                 settotalCartPrice(data.data.totalCartPrice)  
-
 setisLoading(false)
     console.log(data);
     return data                   

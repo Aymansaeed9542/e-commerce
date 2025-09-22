@@ -201,10 +201,10 @@ async function handleUpdateProduct(id: string, count: number) {
                           <div className="sm:w-48 h-48 sm:h-32 bg-muted flex items-center justify-center overflow-hidden">
                             <Image 
                               src={product.product.imageCover} 
-                              alt={product.product.title}
-                              width={200} 
-                              height={200}
+                              alt='image'
                               className="w-full h-full object-cover"
+                              width={200}
+                              height={200}
                             />
                           </div>
                           
