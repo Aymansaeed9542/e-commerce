@@ -1,6 +1,6 @@
     "use client"
 
-import { addProductToCard } from '@/cartActions/addProductToCart'
+// import { addProductToCard } from '@/cartActions/addProductToCart'
 import { Button } from '@/components/ui/button'
 import { cartContext } from '@/context/cartContext'
 import React, { useContext, useState } from 'react'

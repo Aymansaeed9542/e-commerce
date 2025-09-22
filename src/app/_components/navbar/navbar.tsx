@@ -11,7 +11,7 @@ import { Search, ShoppingCart, Menu, X, User } from "lucide-react";
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
-    const {data : session , status} = useSession()
+    const {status} = useSession()
     const cartContextValue = useContext(cartContext)
     const numOfCartItems = cartContextValue?.numOfCartItems || 0
     

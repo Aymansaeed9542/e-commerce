@@ -3,7 +3,6 @@ import {
   Card,
   CardContent,
   CardFooter,
-  CardHeader,
 } from "@/components/ui/card"
 import Image from "next/image"
 import Link from "next/link"
@@ -27,7 +26,6 @@ type Product = {
 
 const HomeCard =({ product }: { product: Product })  => {
   const [isWishlisted, setIsWishlisted] = useState(false)
-  const [isQuickView, setIsQuickView] = useState(false)
   const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false)
   const [isQuickAdding, setIsQuickAdding] = useState(false)
   

@@ -1,37 +1,65 @@
-import getSingleProduct from '@/apis/singleProduct'
-import { Button } from '@/components/ui/button'
 import React from 'react'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { X } from 'lucide-react'
+import getSingleProduct from '@/apis/singleProduct'
+import ProductDetailsClient from './ProductDetailsClient'
 
-const ProductDetails = async ({params} :{params :{id: string}}) => {
-const {id} = await params
-const data = await getSingleProduct(id)
-console.log(data);
+interface Product {
+  id: string
+  title: string
+  description: string
+  imageCover: string
+  images: string[]
+  price: number
+  ratingsAverage: number
+  ratingsQuantity: number
+  category: {
+    name: string
+    slug: string
+  }
+  brand: {
+    name: string
+    slug: string
+  }
+  quantity: number
+  sold: number
+  createdAt: string
+}
 
+interface ProductDetailsProps {
+  params: Promise<{ id: string }>
+}
 
-return (
-    <section className='my-10 md:w-[80%] md:px-0 px-5 w-full mx-auto flex items-center flex-col md:flex-row'>
-      <div className='w-full md:w-1/3'>
-      <img src={data.imageCover} alt="" className='w-100' />
-      
-      </div>
-      <div className=' w-full md:w-2/3 mx-10 '>
-      <h3 className='pb-3 text-2xl'>{ data.title}</h3>
-      <p className='text-gray-500 text-sm'>
-        {data.description}
-      </p>
-
-      <p className=' mt-5'>{data.category.name}</p>
-      <div className='flex justify-between'>
-        <p>{data.price}EGP</p>
-        <p className=''><i className="fas fa-star text-yellow-400 mb-4"></i>{data.ratingsAverage}</p>
-      </div>
-                  <div className="  flex flex-wrap items-center gap-2 md:flex-row">
-      <Button className='w-full bg-green-600'>Add to Cart</Button>
-    </div>
-      </div>
+const ProductDetails = async ({ params }: ProductDetailsProps) => {
+  const { id } = await params
   
-    </section>
-  )
+  let product: Product | null = null
+  let error: string | null = null
+  
+  try {
+    product = await getSingleProduct(id)
+  } catch (err) {
+    console.error('Error fetching product:', err)
+    error = 'Failed to load product details'
+  }
+
+  if (error || !product) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <X className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+          <h2 className="text-2xl font-bold mb-2">Product Not Found</h2>
+          <p className="text-muted-foreground mb-6">The product you&apos;re looking for doesn&apos;t exist.</p>
+          <Link href="/products">
+            <Button>Back to Products</Button>
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
+  return <ProductDetailsClient product={product} />
 }
 
 export default ProductDetails

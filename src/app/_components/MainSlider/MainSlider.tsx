@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import BlackFridayBanner from "./../../../assets/screens/slider/Black-Friday_web_banner_17.jpg";
 import img2 from "./../../../assets/screens/slider/Black-Friday-Web-Banner-06.jpg";
@@ -53,8 +53,8 @@ const MainSlider = () => {
   const [paused, setPaused] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const next = () => setActive((p) => (p + 1) % slides.length);
-  const prev = () => setActive((p) => (p - 1 + slides.length) % slides.length);
+  const next = useCallback(() => setActive((p) => (p + 1) % slides.length), [slides.length]);
+  const prev = useCallback(() => setActive((p) => (p - 1 + slides.length) % slides.length), [slides.length]);
 
   useEffect(() => {
     if (paused) return;
@@ -63,7 +63,7 @@ const MainSlider = () => {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [active, paused, slides.length]);
+  }, [active, paused, next]);
 
   return (
     <div
