@@ -19,18 +19,36 @@ const Navbar = () => {
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
-                    {/* Logo and Mobile Menu Button */}
-                    <div className="flex items-center gap-4">
+                    {/* Logo */}
+                    <div className="flex items-center">
+                        <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                            <Image src={logo} alt="FreshCart Logo" className="h-8 w-auto" />
+                        </Link>
+                    </div>
+
+                    {/* Mobile Controls - Right Side */}
+                    <div className="lg:hidden flex items-center gap-2">
+                        {/* Cart Icon for Mobile */}
+                        <Link href="/cart" className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-background hover:bg-accent hover:text-accent-foreground transition-colors">
+                            <ShoppingCart className="h-5 w-5" />
+                            {numOfCartItems > 0 && (
+                                <span className="absolute -top-1 -right-1 h-5 min-w-[20px] rounded-full bg-primary px-1.5 text-[10px] font-semibold text-primary-foreground flex items-center justify-center animate-pulse">
+                                    {numOfCartItems > 99 ? '99+' : numOfCartItems}
+                                </span>
+                            )}
+                        </Link>
+                        
+                        {/* Theme Toggle for Mobile */}
+                        <ThemeToggle />
+                        
+                        {/* Mobile Menu Button */}
                         <button 
                             aria-label="Menu" 
-                            className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-background hover:bg-accent hover:text-accent-foreground transition-colors" 
+                            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-background hover:bg-accent hover:text-accent-foreground transition-colors" 
                             onClick={() => setOpen(!open)}
                         >
                             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
                         </button>
-                        <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-                            <Image src={logo} alt="FreshCart Logo" className="h-8 w-auto" />
-                        </Link>
                     </div>
 
                     {/* Desktop Navigation */}
@@ -148,19 +166,7 @@ const Navbar = () => {
                                 >
                                     Brands
                                 </Link>
-                                <Link 
-                                    href="/cart" 
-                                    onClick={() => setOpen(false)} 
-                                    className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-                                >
-                                    <ShoppingCart className="h-4 w-4" />
-                                    Cart
-                                    {numOfCartItems > 0 && (
-                                        <span className="h-5 min-w-[20px] rounded-full bg-primary px-1.5 text-[10px] font-semibold text-primary-foreground flex items-center justify-center">
-                                            {numOfCartItems > 99 ? '99+' : numOfCartItems}
-                                        </span>
-                                    )}
-                                </Link>
+                            
                             </div>
                             
                             {/* Auth Links */}
@@ -179,7 +185,6 @@ const Navbar = () => {
                                 >
                                     Register
                                 </Link>
-                                <ThemeToggle />
                                 {status === "authenticated" && (
                                     <Button 
                                         onClick={() => {

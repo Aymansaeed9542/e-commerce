@@ -131,23 +131,23 @@ const ProductPreviewModal = ({ product, isOpen, onClose }: ProductPreviewModalPr
       />
       
       {/* Modal */}
-      <div className="relative w-full max-w-6xl mx-4 max-h-[90vh] overflow-hidden">
+      <div className="relative w-full max-w-6xl mx-2 sm:mx-4 max-h-[95vh] sm:max-h-[90vh] overflow-hidden">
         <Card className="bg-background border-0 shadow-2xl">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b">
-            <h2 className="text-2xl font-bold text-foreground">{product.title}</h2>
+          <div className="flex items-center justify-between p-4 sm:p-6 border-b">
+            <h2 className="text-lg sm:text-2xl font-bold text-foreground pr-2">{product.title}</h2>
             <Button
               variant="ghost"
               size="sm"
               onClick={onClose}
-              className="h-8 w-8 p-0 hover:bg-accent"
+              className="h-8 w-8 p-0 hover:bg-accent flex-shrink-0"
             >
               <X className="h-4 w-4" />
             </Button>
           </div>
 
-          <CardContent className="p-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <CardContent className="p-4 sm:p-6 overflow-y-auto max-h-[calc(95vh-120px)] sm:max-h-[calc(90vh-120px)]">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
               {/* Image Gallery */}
               <div className="space-y-4">
                 {/* Main Image */}
@@ -212,17 +212,17 @@ const ProductPreviewModal = ({ product, isOpen, onClose }: ProductPreviewModalPr
               </div>
 
               {/* Product Details */}
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {/* Price and Rating */}
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div className="flex items-center gap-2">
-                      <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                      <span className="text-lg font-semibold">{product.ratingsAverage}</span>
-                      <span className="text-muted-foreground">(127 reviews)</span>
+                      <Star className="h-4 w-4 sm:h-5 sm:w-5 fill-yellow-400 text-yellow-400" />
+                      <span className="text-base sm:text-lg font-semibold">{product.ratingsAverage}</span>
+                      <span className="text-sm text-muted-foreground">(127 reviews)</span>
                     </div>
-                    <div className="text-right">
-                      <div className="text-3xl font-bold text-primary">${product.price}</div>
+                    <div className="text-left sm:text-right">
+                      <div className="text-2xl sm:text-3xl font-bold text-primary">${product.price}</div>
                       <div className="text-sm text-muted-foreground line-through">
                         ${(product.price * 1.3).toFixed(2)}
                       </div>
@@ -285,38 +285,40 @@ const ProductPreviewModal = ({ product, isOpen, onClose }: ProductPreviewModalPr
                   <Button
                     onClick={handleQuickAdd}
                     disabled={isAddingToCart}
-                    className="w-full h-12 text-lg font-semibold"
+                    className="w-full h-10 sm:h-12 text-base sm:text-lg font-semibold"
                   >
                     {isAddingToCart ? (
                       <>
-                        <Loader2 className="h-5 w-5 mr-2 animate-spin" />
-                        Adding to Cart...
+                        <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 mr-2 animate-spin" />
+                        <span className="hidden sm:inline">Adding to Cart...</span>
+                        <span className="sm:hidden">Adding...</span>
                       </>
                     ) : (
                       <>
-                        <ShoppingCart className="h-5 w-5 mr-2" />
+                        <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                         Add to Cart
                       </>
                     )}
                   </Button>
                   
-                  <div className="flex gap-3">
+                  <div className="flex gap-2 sm:gap-3">
                     <Button
                       variant="outline"
                       onClick={() => setIsWishlisted(!isWishlisted)}
-                      className={`flex-1 ${isWishlisted ? 'bg-red-50 border-red-200 text-red-600' : ''}`}
+                      className={`flex-1 h-10 sm:h-11 text-sm sm:text-base ${isWishlisted ? 'bg-red-50 border-red-200 text-red-600' : ''}`}
                     >
-                      <Heart className={`h-4 w-4 mr-2 ${isWishlisted ? 'fill-current' : ''}`} />
-                      {isWishlisted ? 'Wishlisted' : 'Add to Wishlist'}
+                      <Heart className={`h-4 w-4 mr-1 sm:mr-2 ${isWishlisted ? 'fill-current' : ''}`} />
+                      <span className="hidden sm:inline">{isWishlisted ? 'Wishlisted' : 'Add to Wishlist'}</span>
+                      <span className="sm:hidden">{isWishlisted ? 'Saved' : 'Save'}</span>
                     </Button>
                     
                     <Button
                       variant="outline"
                       onClick={handleShare}
-                      className="flex-1"
+                      className="flex-1 h-10 sm:h-11 text-sm sm:text-base"
                     >
-                      <Share2 className="h-4 w-4 mr-2" />
-                      Share
+                      <Share2 className="h-4 w-4 mr-1 sm:mr-2" />
+                      <span className="hidden sm:inline">Share</span>
                     </Button>
                   </div>
                 </div>
