@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server'
  
 export async function middleware(request: NextRequest) {
 const {pathname} = request.nextUrl
-const routes = ["/", "/brands" , "/categories" , "/cart" , "/productDetails", "/payment" , "allOrders"]
+const routes = ["/", "/brands" , "/categories" , "/cart" , "/productDetails", "/payment" , "/allOrders"]
 const authPages = ["/login" ,"/register"]
 
 const token = await getToken({req : request})
@@ -22,5 +22,5 @@ if(token && authPages.includes(pathname) ){
  
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/", "/brands" , "/categories" , "/cart" , "/productDetails","/login" ,"/register" , "/payment" , "allOrders"],
+  matcher: ["/", "/brands" , "/categories" , "/cart" , "/productDetails","/login" ,"/register" , "/payment" , "/allOrders"],
 }
