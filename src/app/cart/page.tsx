@@ -7,6 +7,7 @@ import { cartContext } from '@/context/cartContext'
 import Image from 'next/image'
 import { toast } from 'sonner'
 import { CartProduct } from '@/types/cart.type'
+import Link from 'next/link'
 
 
 const Cart = () => {
@@ -318,7 +319,9 @@ async function handleUpdateProduct(id: string, count: number) {
                 {/* Action Buttons */}
                 <div className="space-y-3 pt-4">
                   <Button className="w-full" size="lg">
+                    <Link href="/payment">
                     Proceed to Checkout
+                    </Link>
                   </Button>
                   
                   <Button variant="outline" className="w-full">
