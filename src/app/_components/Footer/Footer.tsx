@@ -4,7 +4,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="mt-10 bg-slate-100 text-slate-900">
+    <section className="mt-10 bg-slate-100 text-slate-900">
       <div className="mx-auto w-full max-w-7xl px-4 py-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="space-y-1">
@@ -47,7 +47,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-    </footer>
+    </section>
   );
 }
 
