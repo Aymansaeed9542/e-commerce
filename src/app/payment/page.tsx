@@ -7,9 +7,10 @@ import { Separator } from '@/components/ui/separator'
 import { cartContext } from '@/context/cartContext'
 import { cashPaymentAction } from '@/paymentActions/cashPayment'
 import React, { useContext, useRef } from 'react'
+import { toast } from 'sonner'
 
 const Payment = () => {
- const {cartId , products , totalCartPrice} = useContext(cartContext)!
+ const {cartId , products , totalCartPrice , afterPayment} = useContext(cartContext)!
 
 
    async function cashPayment(){
@@ -23,15 +24,26 @@ const Payment = () => {
   }
     try {
       const data = await cashPaymentAction(cartId as string , values)
-      console.log(data);
-      
+       if(data?.status === "success"){
+                      toast.success("Successful Process",{
+                          duration:3000,
+                          position:"top-center"
+                      })
+                  } else {
+                      toast.error("there is something wrong",{
+                          duration:3000,
+                          position:"top-center"
+                      })
+                  }
+
+                  afterPayment()
+
+
     } catch (error) {
       console.log(error);
       
       
     } 
-
-      console.log(values);
   }
 
   const details =useRef<HTMLInputElement>(null)
@@ -69,7 +81,11 @@ const Payment = () => {
               </div>
             </CardContent>
             <CardFooter>
-              <Button className="w-full" onClick={cashPayment}>Cash Payment</Button>
+              <div className='flex flex-col md:flex-row'>
+              <Button className="w-full mb-3 me-17" onClick={cashPayment}>Cash Payment</Button>
+              <Button className="w-full">Cash Payment</Button>
+              </div>
+
             </CardFooter>
           </Card>
         </div>

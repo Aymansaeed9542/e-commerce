@@ -61,6 +61,7 @@ setisLoading(false)
 
 
 
+
         async function deleteProduct(id :string) {
                     setisLoading(true)
 
@@ -117,6 +118,11 @@ setisLoading(false)
     },[])
 
 
+    function afterPayment(){
+                    setnumOfCartItems(0)
+            setproducts([])
+            settotalCartPrice(0)}
+
 
 
   return (
@@ -129,7 +135,8 @@ setisLoading(false)
         addProduct ,
         updateProductCount,
         clearAllProducts,
-        cartId
+        cartId,
+        afterPayment
     }}>
         {children}
     </cartContext.Provider>
