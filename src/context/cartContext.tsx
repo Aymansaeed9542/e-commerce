@@ -28,7 +28,7 @@ const  CartContextProvider = ({children}:{children:React.ReactNode}) => {
                 setproducts(data.data.products)
                 settotalCartPrice(data.data.totalCartPrice)   
                 setcartId(data.cartId)                  
-
+            
 setisLoading(false)
   console.log("Cart API Response:", data);
         } catch (error) {
@@ -43,10 +43,11 @@ setisLoading(false)
 
         try {
                 const data = await addProductToCard(id)
-                setnumOfCartItems(data.numOfCartItems)
-                setproducts(data.data.products)
-                settotalCartPrice(data.data.totalCartPrice)  
-setisLoading(false)
+//                 setnumOfCartItems(data.numOfCartItems)
+//                 setproducts(data.data.products)
+//                 settotalCartPrice(data.data.totalCartPrice)  
+// setisLoading(false)
+        getCartData()
     console.log(data);
     return data                   
 
@@ -65,12 +66,12 @@ setisLoading(false)
 
         try {
                 const data : Cart = await deleteProductAction(id)
-                setnumOfCartItems(data.numOfCartItems)
-                setproducts(data.data.products)
-                settotalCartPrice(data.data.totalCartPrice)                     
+                // setnumOfCartItems(data.numOfCartItems)
+                // setproducts(data.data.products)
+                // settotalCartPrice(data.data.totalCartPrice)         
+                getCartData()            
 
 setisLoading(false)
-    console.log(data);
     return data
         } catch (error) {
             console.log(error);
@@ -85,7 +86,6 @@ setisLoading(false)
                 setnumOfCartItems(data.numOfCartItems)
                 setproducts(data.data.products)
                 settotalCartPrice(data.data.totalCartPrice)
-                                console.log(data);
              return data
              
         } catch (error) {
