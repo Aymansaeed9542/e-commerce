@@ -7,11 +7,12 @@ import {
 import Image from "next/image"
 import Link from "next/link"
 import AddProductBtn from "../AddProductBtn/AddProductBtn"
-import { Star, Heart, Eye, ShoppingCart, Share2, Zap, Loader2 } from "lucide-react"
+import { Star, Eye, ShoppingCart, Share2, Zap, Loader2 } from "lucide-react"
 import { useState, useContext } from "react"
 import ProductPreviewModal from "../ProductPreviewModal/ProductPreviewModal"
 import { cartContext } from "@/context/cartContext"
 import { toast } from "sonner"
+import AddToWishlist from "../AddToWishlist/addToWishlist"
 
 type Product = {
   imageCover: string
@@ -25,7 +26,6 @@ type Product = {
 }
 
 const HomeCard =({ product }: { product: Product })  => {
-  const [isWishlisted, setIsWishlisted] = useState(false)
   const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false)
   const [isQuickAdding, setIsQuickAdding] = useState(false)
   
@@ -61,6 +61,7 @@ const HomeCard =({ product }: { product: Product })  => {
       setIsQuickAdding(false)
     }
   }
+
   
   return (
     <div className="group h-full">
@@ -79,25 +80,8 @@ const HomeCard =({ product }: { product: Product })  => {
               {/* Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
-              {/* Quick Actions Overlay */}
+              {/* Quick Actions Overlay (without wishlist) */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500">
-                {/* Wishlist Button */}
-                <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-300 delay-100">
-                  <button 
-                    onClick={(e) => {
-                      e.preventDefault()
-                      setIsWishlisted(!isWishlisted)
-                    }}
-                    className={`flex h-10 w-10 items-center justify-center rounded-full backdrop-blur-sm transition-all duration-200 hover:scale-110 ${
-                      isWishlisted 
-                        ? 'bg-red-500 text-white' 
-                        : 'bg-white/90 text-gray-900 hover:bg-white'
-                    }`}
-                  >
-                    <Heart className={`h-5 w-5 ${isWishlisted ? 'fill-current' : ''}`} />
-                  </button>
-                </div>
-                
                     {/* Quick View Button */}
                     <div className="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition-all duration-300 delay-150">
                       <button 
@@ -145,11 +129,14 @@ const HomeCard =({ product }: { product: Product })  => {
         
         <CardContent className="p-6">
           <div className="space-y-4">
-            <Link href={`/productDetails/${product.id}`} className="block">
-              <h3 className="font-semibold text-lg text-card-foreground line-clamp-2 mb-3 group-hover:text-primary transition-colors duration-200 leading-tight">
-                {product.title}
-              </h3>
-            </Link>
+            <div className="flex items-start justify-between gap-3">
+              <Link href={`/productDetails/${product.id}`} className="block flex-1 min-w-0">
+                <h3 className="font-semibold text-lg text-card-foreground line-clamp-2 group-hover:text-primary transition-colors duration-200 leading-tight">
+                  {product.title}
+                </h3>
+              </Link>
+                  <AddToWishlist id={product.id}/>
+            </div>
             
             {/* Rating & Reviews */}
             <div className="flex items-center justify-between">

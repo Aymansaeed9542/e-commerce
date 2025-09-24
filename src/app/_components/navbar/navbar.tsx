@@ -7,7 +7,7 @@ import ThemeToggle from "./ThemeToggle";
 import { signOut, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { cartContext } from "@/context/cartContext";
-import { Search, ShoppingCart, Menu, X, User } from "lucide-react";
+import { Search, ShoppingCart, Menu, X, User, Heart } from "lucide-react";
 
 type SearchProduct = {
     _id: string
@@ -125,6 +125,10 @@ const Navbar = () => {
                                     {numOfCartItems > 99 ? '99+' : numOfCartItems}
                                 </span>
                             )}
+                        </Link>
+                        {/* Wishlist Icon for Mobile */}
+                        <Link href="/wishlist" className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-background hover:bg-accent hover:text-accent-foreground transition-colors">
+                            <Heart className="h-5 w-5" />
                         </Link>
                         
                         {/* Theme Toggle for Mobile */}
@@ -245,6 +249,10 @@ const Navbar = () => {
                                         {numOfCartItems > 99 ? '99+' : numOfCartItems}
                                     </span>
                                 )}
+                            </Link>
+                            {/* Wishlist Icon */}
+                            <Link href="/wishlist" className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-background hover:bg-accent hover:text-accent-foreground transition-colors">
+                                <Heart className="h-5 w-5" />
                             </Link>
                             
                             {/* Theme Toggle */}
