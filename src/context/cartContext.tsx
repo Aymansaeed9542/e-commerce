@@ -7,6 +7,7 @@ import { getUserCartDataAction } from '@/cartActions/getUserCartData'
 import { updateProductCountAction } from '@/cartActions/updateProductCount'
 import { Cart, CartContextType } from '@/types/cart.type'
 import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import React, { createContext, useEffect, useState } from 'react'
 
 
@@ -19,7 +20,7 @@ const  CartContextProvider = ({children}:{children:React.ReactNode}) => {
     const [isLoading, setisLoading] = useState(false)
     const [cartId, setcartId] = useState("")
 
-
+        const router = useRouter()
     async function getCartData(){
                 setisLoading(true)
         try {
@@ -121,7 +122,9 @@ setisLoading(false)
     function afterPayment(){
                     setnumOfCartItems(0)
             setproducts([])
-            settotalCartPrice(0)}
+            settotalCartPrice(0)
+        router.push("/cart")
+        }
 
 
 
