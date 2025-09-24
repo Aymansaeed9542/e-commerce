@@ -11,6 +11,7 @@ import { regidterSchemaType, registerSchema } from '@/schema/register.schema'
 import axios from 'axios'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 const Register = () => {
 
@@ -186,9 +187,9 @@ toast.success(data.message , {
                     <div className="text-center pt-1">
                       <p className="text-muted-foreground text-xs">
                         Already have an account?{' '}
-                        <a href="/login" className="text-primary hover:text-primary/80 font-medium transition-colors">
+                        <Link href="/login" className="text-primary hover:text-primary/80 font-medium transition-colors">
                           Sign in
-                        </a>
+                        </Link>
                       </p>
                     </div>
                   </form>

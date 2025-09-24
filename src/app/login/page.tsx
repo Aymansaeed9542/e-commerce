@@ -12,6 +12,7 @@ import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { loginSchema, loginSchemaType } from '@/schema/login.schema'
 import {signIn} from "next-auth/react"
+import Link from 'next/link'
 
 const Login = () => {
 
@@ -159,9 +160,9 @@ router.push(res.url || "/")
                     <div className="text-center pt-1">
                       <p className="text-muted-foreground text-xs">
                         Already have an account?{' '}
-                        <a href="/Register" className="text-primary hover:text-primary/80 font-medium transition-colors">
+                        <Link href="/register" className="text-primary hover:text-primary/80 font-medium transition-colors">
                           Sign up
-                        </a>
+                        </Link>
                       </p>
                     </div>
                   </form>

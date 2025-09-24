@@ -41,14 +41,16 @@ const Navbar = () => {
                         {/* Theme Toggle for Mobile */}
                         <ThemeToggle />
                         
-                        {/* Mobile Menu Button */}
-                        <button 
-                            aria-label="Menu" 
-                            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-background hover:bg-accent hover:text-accent-foreground transition-colors" 
-                            onClick={() => setOpen(!open)}
-                        >
-                            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-                        </button>
+                        {/* Mobile Menu Button (authenticated only) */}
+                        {status === "authenticated" && (
+                            <button 
+                                aria-label="Menu" 
+                                className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-background hover:bg-accent hover:text-accent-foreground transition-colors" 
+                                onClick={() => setOpen(!open)}
+                            >
+                                {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                            </button>
+                        )}
                     </div>
 
                     {/* Desktop Navigation */}
@@ -125,13 +127,12 @@ const Navbar = () => {
                                     Register
                                 </Link>
                             </div>
-                            <ThemeToggle />
                         </div>
                     )}
                 </div>
 
-                {/* Mobile Menu */}
-                {open && (
+                {/* Mobile Menu (authenticated only) */}
+                {status === "authenticated" && open && (
                     <div className="lg:hidden border-t bg-background/95 backdrop-blur">
                         <div className="px-4 py-6 space-y-6">
                             {/* Search Bar */}
