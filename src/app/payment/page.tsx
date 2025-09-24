@@ -8,9 +8,12 @@ import { cartContext } from '@/context/cartContext'
 import { cashPaymentAction } from '@/paymentActions/cashPayment'
 import React, { useContext, useRef } from 'react'
 import { toast } from 'sonner'
+import { onlinePaymentAction } from '@/paymentActions/onlinePayment'
+import { useRouter } from 'next/navigation'
 
 const Payment = () => {
  const {cartId , products , totalCartPrice , afterPayment} = useContext(cartContext)!
+  const router = useRouter()
 
 
    async function cashPayment(){
@@ -38,6 +41,30 @@ const Payment = () => {
 
                   afterPayment()
 
+
+    } catch (error) {
+      console.log(error);
+      
+      
+    } 
+  }
+
+
+     async function onlinePayment(){
+
+    const values = {
+      shippingAddress:{
+          details: details.current?.value || "",
+          phone: phone.current?.value || "",
+          city: city.current?.value || ""
+          }  
+  }
+    try {
+      const data = await onlinePaymentAction(cartId as string , values)
+
+        if(data.status === "success"){
+          window.location.href = data.session.url
+        }
 
     } catch (error) {
       console.log(error);
@@ -82,8 +109,8 @@ const Payment = () => {
             </CardContent>
             <CardFooter>
               <div className='flex flex-col md:flex-row'>
-              <Button className="w-full mb-3 me-17" onClick={cashPayment}>Cash Payment</Button>
-              <Button className="w-full">Cash Payment</Button>
+              <Button className="w-full mb-3 me-15" onClick={cashPayment}>Cash Payment</Button>
+              <Button className="w-full" onClick={onlinePayment}>Online Payment</Button>
               </div>
 
             </CardFooter>
