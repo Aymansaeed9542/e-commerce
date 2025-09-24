@@ -167,6 +167,13 @@ const Navbar = () => {
                                 >
                                     Brands
                                 </Link>
+                                <Link 
+                                    href="/allorders" 
+                                    onClick={() => setOpen(false)} 
+                                    className="block px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                                >
+                                    Brands
+                                </Link>
                             
                             </div>
                             

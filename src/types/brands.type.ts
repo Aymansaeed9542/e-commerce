@@ -11,4 +11,8 @@ export interface BrandsResponse {
   data: BrandEntity[]
 }
 
+export interface SpecificBrandResponse {
+  data: BrandEntity
+}
+
 

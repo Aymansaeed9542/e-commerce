@@ -3,11 +3,15 @@ import React from 'react'
 import Image from 'next/image'
 import { Card, CardContent } from '@/components/ui/card'
 import { BrandsResponse, BrandEntity } from '@/types/brands.type'
+import Link from 'next/link'
 
 const Brands = async () =>  {
 
   const data: BrandsResponse = await getAllBrands()
   const brands: BrandEntity[] = data?.data ?? []
+
+  console.log(data);
+  
   
   if (!brands.length) {
     return (
@@ -22,8 +26,10 @@ const Brands = async () =>  {
       <h1 className="mb-6 text-2xl font-semibold">Brands</h1>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         {brands.map((brand) => (
+
           <Card key={brand._id} className="group overflow-hidden p-0">
-            <CardContent className="p-0">
+                      <Link href={`specificBrand/${brand._id}`}>
+                                  <CardContent className="p-0">
               <div className="relative aspect-square">
                 <Image
                   src={brand.image}
@@ -38,6 +44,7 @@ const Brands = async () =>  {
                 </div>
               </div>
             </CardContent>
+          </Link>
           </Card>
         ))}
       </div>

@@ -6,7 +6,6 @@ import { deleteProductAction } from '@/cartActions/deleteProductFromCart'
 import { getUserCartDataAction } from '@/cartActions/getUserCartData'
 import { updateProductCountAction } from '@/cartActions/updateProductCount'
 import { Cart, CartContextType } from '@/types/cart.type'
-import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import React, { createContext, useEffect, useState } from 'react'
 
