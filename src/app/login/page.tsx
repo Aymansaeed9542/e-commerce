@@ -155,6 +155,13 @@ router.push(res.url || "/")
                       Login
                     </Button>
 
+                    {/* Forget Password Link */}
+                    <p className="text-center text-xs text-muted-foreground">
+                      <Link href="/resetPassword" className="text-primary hover:text-primary/80 font-medium">
+                        Forget Password
+                      </Link>
+                    </p>
+
                     {/* Register Link */}
                     <div className="text-center pt-1">
                       <p className="text-muted-foreground text-xs">
