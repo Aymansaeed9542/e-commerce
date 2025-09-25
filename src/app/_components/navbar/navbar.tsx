@@ -415,33 +415,17 @@ const Navbar = () => {
                             
                             {/* Auth Links */}
                             <div className="flex items-center gap-4 pt-4 border-t">
-                                <Link 
-                                    href="/login" 
-                                    onClick={() => setOpen(false)} 
-                                    className="text-sm text-foreground hover:text-primary transition-colors"
+                                <Button 
+                                    onClick={() => {
+                                        signOut({ callbackUrl: "/login" });
+                                        setOpen(false);
+                                    }} 
+                                    variant="outline" 
+                                    size="sm"
+                                    className="btn-animate"
                                 >
-                                    Login
-                                </Link>
-                                <Link 
-                                    href="/register" 
-                                    onClick={() => setOpen(false)} 
-                                    className="text-sm text-foreground hover:text-primary transition-colors"
-                                >
-                                    Register
-                                </Link>
-                                {status === "authenticated" && (
-                                    <Button 
-                                        onClick={() => {
-                                            signOut({ callbackUrl: "/login" });
-                                            setOpen(false);
-                                        }} 
-                                        variant="outline" 
-                                        size="sm"
-                                        className="btn-animate"
-                                    >
-                                        Logout
-                                    </Button>
-                                )}
+                                    Logout
+                                </Button>
                             </div>
                         </div>
                     </div>

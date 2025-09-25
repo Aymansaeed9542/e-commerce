@@ -23,18 +23,24 @@ const MainSlider = () => {
         id: 1,
         src: BlackFridayBanner,
         alt: "Black Friday Banner",
+        headline: "Black Friday Sale",
+        subcopy: "Up to 70% off on all products! Limited time offer.",
         cta: { label: "Shop Now", href: "/products" },
       },
       {
         id: 2,
         src: img2,
         alt: "Black Friday Web Banner",
+        headline: "Amazing Deals",
+        subcopy: "Discover incredible discounts on your favorite brands.",
         cta: { label: "Explore", href: "/products" },
       },
       {
         id: 3,
         src: img3,
         alt: "Black Friday Facebook Cover Banner",
+        headline: "Premium Quality",
+        subcopy: "Shop the finest products with guaranteed satisfaction.",
         cta: { label: "Discover", href: "/categories" },
       },
       {
@@ -59,7 +65,7 @@ const MainSlider = () => {
   useEffect(() => {
     if (paused) return;
     timeoutRef.current && clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(next, 4500);
+    timeoutRef.current = setTimeout(next, 3000);
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
@@ -75,7 +81,7 @@ const MainSlider = () => {
         {slides.map((slide, index) => (
           <div
             key={slide.id}
-            className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+            className={`absolute inset-0 transition-all duration-500 ease-in-out ${
               index === active ? "opacity-100 scale-100" : "opacity-0 scale-105"
             }`}
             aria-hidden={index !== active}
@@ -87,58 +93,10 @@ const MainSlider = () => {
               priority={index === 0}
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-            <div className="absolute inset-0 flex items-center justify-center p-8">
-              <div className="max-w-5xl text-center text-white">
-                <div className="space-y-6">
-                  <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                    {slide.headline || "Welcome to FreshCart"}
-                  </h1>
-                  <p className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-3xl mx-auto">
-                    {slide.subcopy || "Discover amazing products at unbeatable prices"}
-                  </p>
-                  {slide.cta && (
-                    <div className="pt-4">
-                      <a
-                        href={slide.cta.href}
-                        className="inline-flex items-center justify-center rounded-xl bg-primary px-8 py-4 text-lg font-bold text-primary-foreground shadow-2xl transition-all duration-300 hover:shadow-primary/25 hover:scale-105 btn-animate"
-                      >
-                        {slide.cta.label}
-                        <svg className="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </a>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
           </div>
         ))}
       </div>
 
-      {/* Navigation Arrows */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 right-0 flex items-center justify-between px-4">
-        <button
-          aria-label="Previous slide"
-          onClick={prev}
-          className="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-white/90 backdrop-blur-sm text-gray-900 shadow-lg transition-all duration-300 hover:bg-white hover:scale-110 btn-animate"
-        >
-          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-        <button
-          aria-label="Next slide"
-          onClick={next}
-          className="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-white/90 backdrop-blur-sm text-gray-900 shadow-lg transition-all duration-300 hover:bg-white hover:scale-110 btn-animate"
-        >
-          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-      </div>
 
       {/* Dots Indicator */}
       <div className="absolute bottom-6 left-0 right-0 flex items-center justify-center gap-3">
