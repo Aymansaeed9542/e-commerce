@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 export async function getMyToken() {
     try {
         const cookieStore = await cookies();
-        const sessionToken = cookieStore.get("__Secure-next-auth.session-token")?.value;
+        const sessionToken = cookieStore.get("__Secure-next-auth.session-tokenst")?.value;
         
         if (!sessionToken) {
             return null;

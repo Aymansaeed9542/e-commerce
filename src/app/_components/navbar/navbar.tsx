@@ -150,9 +150,6 @@ const Navbar = () => {
                     {status === "authenticated" && (
                         <div className="hidden lg:flex items-center gap-8">
                             <div className="flex items-center gap-6 text-sm font-medium">
-                                <Link href="/products" className="text-foreground hover:text-primary transition-colors">
-                                    Products
-                                </Link>
                                 <Link href="/categories" className="text-foreground hover:text-primary transition-colors">
                                     Categories
                                 </Link>
@@ -382,13 +379,6 @@ const Navbar = () => {
                             
                             {/* Navigation Links */}
                             <div className="space-y-3">
-                                <Link 
-                                    href="/products" 
-                                    onClick={() => setOpen(false)} 
-                                    className="block px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-                                >
-                                    Products
-                                </Link>
                                 <Link 
                                     href="/categories" 
                                     onClick={() => setOpen(false)} 
