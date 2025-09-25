@@ -202,11 +202,11 @@ toast.success(data.message , {
           <div className="w-full lg:block hidden">
             <div className="relative rounded-lg overflow-hidden ">
               <Image
-                src="/register1-removebg-preview.png"
-                alt="Registration"
-                width={600}
-                height={400}
-                className="w-full h-auto object-contain rounded-lg"
+                src="/register.png"
+                alt="Registration Illustration"
+                width={500}
+                height={350}
+                className="w-full h-auto object-contain rounded-lg max-w-[420px] mx-auto"
                 priority
               />
             </div>
