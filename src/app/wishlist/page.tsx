@@ -163,7 +163,7 @@ const Wishlist = () => {
         const data: WishlistResponse = await getUserWishlist()
         if (!isMounted) return
         setProducts(data?.data || [])
-      } catch (e: any) {
+      } catch (e) {
         console.log(e)
         setError('Please login to view your wishlist')
       } finally {

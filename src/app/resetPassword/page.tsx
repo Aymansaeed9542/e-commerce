@@ -7,8 +7,8 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { isAxiosError } from 'axios'
-import { forgotPasswordAction } from '@/authActions/forgotPassword'
-import { verifyResetCodeAction } from '@/authActions/verifyResetCode'
+import { forgotPasswordAction, type ForgotPasswordResponse } from '@/authActions/forgotPassword'
+import { verifyResetCodeAction, type VerifyResetCodeResponse } from '@/authActions/verifyResetCode'
 import { resetPasswordAction } from '@/authActions/resetPassword'
 import { useRouter } from 'next/navigation'
 
@@ -25,17 +25,17 @@ const ResetPasswordPage = () => {
 
   async function onSubmitEmail(values: { email: string }) {
     try {
-      const res = await forgotPasswordAction(values.email)
+      const res: ForgotPasswordResponse = await forgotPasswordAction(values.email)
       console.log('Forgot password response:', res)
-      
-      const normalizedStatus = String((res as { status?: unknown }).status ?? '').toLowerCase()
-      const hasMessage = Boolean((res as { message?: string }).message)
-      if (normalizedStatus === 'success' || hasMessage || (res as { status?: unknown }).status === undefined) {
+
+      const normalizedStatus = String(res.status ?? '').toLowerCase()
+      const hasMessage = Boolean(res.message)
+      if (normalizedStatus === 'success' || hasMessage || res.status === undefined) {
         setEmail(values.email)
         toast.success('Reset code sent to email', { position: 'top-center' })
         setStep(2)
       } else {
-        const msg = (res as { message?: string }).message || 'Failed to send reset code'
+        const msg = res.message || 'Failed to send reset code'
         toast.error(msg)
       }
     } catch (error: unknown) {
@@ -56,9 +56,9 @@ const ResetPasswordPage = () => {
       return
     }
     try {
-      const res = await verifyResetCodeAction(code)
+      const res: VerifyResetCodeResponse = await verifyResetCodeAction(code)
       console.log('Verify response:', res)
-      const normalizedStatus = String((res as { status?: unknown }).status ?? '').toLowerCase()
+      const normalizedStatus = String(res.status ?? '').toLowerCase()
       if (normalizedStatus === 'success') {
         toast.success('Code verified', { position: 'top-center' })
         setStep(3)
