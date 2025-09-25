@@ -1,4 +1,5 @@
 import React from 'react'
+import { getCategorySubcategories } from '@/apis/getCategorySubcategories'
 
 const CategoryDetails = () => {
   return (

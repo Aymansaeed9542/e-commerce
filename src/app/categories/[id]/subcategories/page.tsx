@@ -1,12 +1,10 @@
 import React from 'react'
-import { getAllSubcategories } from '@/apis/getAllSubcategories'
+import { getCategorySubcategories } from '@/apis/getCategorySubcategories'
 import Link from 'next/link'
 
-const Categories  = async () => {
-  const data = await getAllSubcategories()
+const CategorySubcategoriesPage = async ({ params }: { params: { id: string } }) => {
+  const data = await getCategorySubcategories(params.id)
   const subs = Array.isArray(data?.data) ? data.data : []
-
-  console.log(data);
 
   return (
     <div className="container mx-auto max-w-6xl px-4 py-8">
@@ -23,4 +21,6 @@ const Categories  = async () => {
   )
 }
 
-export default Categories 
+export default CategorySubcategoriesPage
+
+
