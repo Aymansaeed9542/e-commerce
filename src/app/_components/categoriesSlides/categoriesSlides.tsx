@@ -18,8 +18,8 @@ const CategoriesSlides = async () => {
     
   return (
     <div className="space-y-8">
-      {/* Categories Grid - 5 per row, 2 rows */}
-      <div className="grid grid-cols-5 gap-4 lg:gap-6 max-w-6xl mx-auto">
+      {/* Categories Grid - responsive: show 10 items in 4 rows on small screens */}
+      <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-5 gap-3 sm:gap-4 lg:gap-6 max-w-6xl mx-auto">
         {data.data.slice(0, Math.min(data.data.length, 10)).map((category: Category, idx: number) => (
           <Link 
             key={idx} 

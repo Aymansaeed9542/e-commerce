@@ -1,10 +1,7 @@
 
-    export default async function getAllProducts(){
+import axios from "axios";
 
-            const response = await fetch(`${process.env.NEXTAUTH_URL}/api/users`,{
-    cache: "no-store"}
-)
-
-    const {data}= await response.json()
-        return data
-    }
+export default async function getAllProducts(){
+    const {data} = await axios.get("https://ecommerce.routemisr.com/api/v1/products")
+    return data.data
+}
